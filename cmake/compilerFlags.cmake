@@ -25,7 +25,7 @@ if ( MINGW OR UNIX OR MSYS ) # MINGW, Linux, APPLE, CYGWIN
 
         # This fails under Fedora - MinGW - Gcc 8.3
         if (NOT MINGW)
-            if (COMPILER_IS_GCC AND CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL 8.0)
+            if (COMPILER_IS_GCC AND CMAKE_CXX_COMPILER_VERSION VERSION_GREATER "7.0")
                 if (NOT ${CMAKE_SYSTEM_PROCESSOR} MATCHES "arm")
                     add_compile_options(-fstack-clash-protection -fcf-protection)
                 else()
@@ -33,7 +33,7 @@ if ( MINGW OR UNIX OR MSYS ) # MINGW, Linux, APPLE, CYGWIN
                 endif()
             endif()
 
-            if (COMPILER_IS_GCC OR (COMPILER_IS_CLANG AND CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL 3.7 ))
+            if (COMPILER_IS_GCC OR (COMPILER_IS_CLANG AND CMAKE_CXX_COMPILER_VERSION VERSION_GREATER "3.6" ))
                 # is not available for clang 3.4.2. it appears to be present in clang 3.7.
                 add_compile_options(-fstack-protector-strong)
             endif()
