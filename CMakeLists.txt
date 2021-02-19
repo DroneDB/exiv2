@@ -26,8 +26,8 @@ option( EXIV2_ENABLE_WEBREADY         "Build webready support into library"     
 option( EXIV2_ENABLE_CURL             "USE Libcurl for HttpIo (WEBREADY)"                     OFF )
 option( EXIV2_ENABLE_SSH              "USE Libssh for SshIo (WEBREADY)"                       OFF )
 
-option( EXIV2_BUILD_SAMPLES           "Build sample applications"                             ON  )
-option( EXIV2_BUILD_EXIV2_COMMAND     "Build exiv2 command-line executable"                   ON  )
+option( EXIV2_BUILD_SAMPLES           "Build sample applications"                             OFF  )
+option( EXIV2_BUILD_EXIV2_COMMAND     "Build exiv2 command-line executable"                   OFF  )
 option( EXIV2_BUILD_UNIT_TESTS        "Build unit tests"                                      OFF )
 option( EXIV2_BUILD_DOC               "Add 'doc' target to generate documentation"            OFF )
 
@@ -37,6 +37,8 @@ option( EXIV2_TEAM_WARNINGS_AS_ERRORS "Treat warnings as errors"                
 option( EXIV2_TEAM_USE_SANITIZERS     "Enable ASAN and UBSAN when available"                  OFF )
 option( EXIV2_TEAM_PACKAGING          "Additional stuff for generating packages"              OFF )
 set(EXTRA_COMPILE_FLAGS " ")
+
+add_definitions(-DSUPPRESS_WARNINGS) # Shh, quiet coyote
 
 mark_as_advanced(
     EXIV2_TEAM_EXTRA_WARNINGS
@@ -59,6 +61,14 @@ endif()
 
 if( EXIV2_BUILD_UNIT_TESTS )
     set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON) # Requires CMake 3.3.3
+endif()
+
+if (WIN32)
+    # DDB: find libraries on Windows
+    set(EXPAT_LIBRARY "${DOWNLOADS_DIR}/gdal/lib/expat.lib")
+    set(EXPAT_INCLUDE_DIR "${DOWNLOADS_DIR}/gdal/include")
+    set(ZLIB_LIBRARY "${DOWNLOADS_DIR}/gdal/lib/zlib.lib")
+    set(ZLIB_INCLUDE_DIR "${DOWNLOADS_DIR}/gdal/include")
 endif()
 
 include(cmake/findDependencies.cmake   REQUIRED)
