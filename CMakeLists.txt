@@ -36,6 +36,8 @@ option( EXIV2_TEAM_USE_SANITIZERS     "Enable ASAN and UBSAN when available"    
 option( EXIV2_TEAM_PACKAGING          "Additional stuff for generating packages"              OFF )
 set(EXTRA_COMPILE_FLAGS " ")
 
+add_definitions(-DSUPPRESS_WARNINGS) # Shh, quiet coyote
+
 mark_as_advanced(
     EXIV2_TEAM_EXTRA_WARNINGS
     EXIV2_TEAM_WARNINGS_AS_ERRORS
