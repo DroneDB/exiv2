@@ -38,7 +38,7 @@ option( EXIV2_TEAM_USE_SANITIZERS     "Enable ASAN and UBSAN when available"    
 option( EXIV2_TEAM_PACKAGING          "Additional stuff for generating packages"              OFF )
 set(EXTRA_COMPILE_FLAGS " ")
 if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-    set(EXTRA_COMPILE_FLAGS "${EXTRA_COMPILE_FLAGS} -Wno-deprecated-declarations -Wno-deprecated-copy -Wno-deprecated-declarations")
+    set(EXTRA_COMPILE_FLAGS "${EXTRA_COMPILE_FLAGS} -Wno-deprecated-copy -Wno-deprecated-declarations")
 endif()
 
 add_definitions(-DSUPPRESS_WARNINGS) # Shh, quiet coyote
